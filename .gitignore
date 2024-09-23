@@ -2,6 +2,7 @@ build/
 log/
 out/
 doc/root.md
+doc/*.pdf
 sources.py
 venv/
 index.json

@@ -2,7 +2,7 @@
 
 ## Build instructions
 
-The project uses `cmake`, `clang++` compiler and `ninja` build system.
+The project uses `cmake`, `clang++` compiler and `make` build systems.
 
 From the project_template root directory,
 
@@ -10,4 +10,4 @@ From the project_template root directory,
 	$ cd build
 	$ cmake --preset clang-release ..
 	$ cd clang-release
-	$ ninja
+	$ make
