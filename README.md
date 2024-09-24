@@ -8,6 +8,5 @@ From the project_template root directory,
 
 	$ mkdir build
 	$ cd build
-	$ cmake --preset clang-release ..
-	$ cd clang-release
+	$ cmake ..
 	$ make
