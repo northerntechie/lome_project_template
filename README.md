@@ -8,5 +8,8 @@ From the project_template root directory,
 
 	$ mkdir build
 	$ cd build
-	$ cmake ..
-	$ make
+	$ cmake --preset clang-release ..
+	$ cd clang-release
+	$ ninja
+
+The build_doc script can be ran from the project root to run the documentation build process.
