@@ -10,4 +10,6 @@ From the project_template root directory,
 	$ cd build
 	$ cmake --preset clang-release ..
 	$ cd clang-release
-	$ make
+	$ ninja
+
+The build_doc script can be ran from the project root to run the documentation build process.
