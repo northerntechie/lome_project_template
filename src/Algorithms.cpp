@@ -1,15 +1,18 @@
 /**
  * Lome sample project - Math functions
  */
-#include <Algorithms.hpp>
+#include "Algorithms.hpp"
+#include "Node.hpp"
 
 void insert(std::vector<Data>& arr, std::size_t pos, Data& value)
 {
 	std::size_t i = pos - 1;
+	Types::Node node(1.0f);
 
 	while ( (i >= 0) && (arr[i] > value) ) {
 		arr[i + 1] = arr[i];
 		--i;
+		node.get();
 	}
 
 	arr[i + 1] = value;

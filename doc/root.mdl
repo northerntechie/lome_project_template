@@ -18,8 +18,9 @@ The `insert()` function is implemented as,
 
 The __Insertion Sort__ algorithm can be described as,
 
+The complexity of the insertion sort algorithm is $O(n)$ for best case, $O(n^2)$ for average case and $O(n^2)$ for the worst case. The complexity is driven by the single while loop in the worst case,
 
-The complexity of the insertion sort algorithm is $O(n)$ for best case, $O(n^2)$ for average case and $O(n^2)$ for the worst case.
+[!insert(std::vector<Data> &, std::size_t, Data &)-10:14]
 
 ## Graph Algorithms
 

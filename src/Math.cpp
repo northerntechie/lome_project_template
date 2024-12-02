@@ -2,7 +2,7 @@
  * Lome sample project - Math functions
  */
 
-#include <Math.hpp>
+#include "Math.hpp"
 
 namespace Math {
 
