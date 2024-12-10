@@ -8,16 +8,19 @@
 #pragma once
 
 #include <variant>
+#include <string>
+#include <optional>
 
 namespace Types {
 
-	using ValueType = std::variant<int,float,double>;
+	using ValueType = std::variant<int,float,double,std::string>;
 
 	class Node {
 	public:
 		explicit Node(ValueType value);
 
-		const ValueType& get() const;
+		template<typename T>
+		std::optional<T> get() const;
 		void set(ValueType value);
 
 	private:

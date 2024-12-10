@@ -12,7 +12,7 @@ void insert(std::vector<Data>& arr, std::size_t pos, Data& value)
 	while ( (i >= 0) && (arr[i] > value) ) {
 		arr[i + 1] = arr[i];
 		--i;
-		node.get();
+		node.get<int>();
 	}
 
 	arr[i + 1] = value;

@@ -6,9 +6,27 @@
 
 #include "Algorithms.hpp"
 #include "Math.hpp"
+#include "Node.hpp"
 
 #include <iostream>
+#include <optional>
 #include <string_view>
+
+#define TEST_HEADER std::cout << __FUNCTION__ << "\n";
+
+void test_NodeStringVariant_get_CorrectValue() {
+	TEST_HEADER
+	Types::Node node("TestString");
+
+	std::optional<std::string> result = node.get<std::string>();
+
+	if (result.has_value()) {
+		std::cout << "Result= " << *result << "\n";
+	}
+	else {
+		std::cout << "Test Failed!\n";
+	}
+}
 
 int main()
 {
@@ -32,5 +50,11 @@ int main()
 		std::cout << datum.name << ", ";
 	}
 
-	std::cout << "\n";
+	std::cout << "\n\n";
+
+	/*
+	* Unit tests
+	*/
+	std::cout << "Unit tests:\n";
+	test_NodeStringVariant_get_CorrectValue();
 }
