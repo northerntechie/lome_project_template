@@ -2,7 +2,7 @@
  * Lome sample project - Math functions
  */
 #include "Algorithms.hpp"
-#include "Node.hpp"
+#include "types/Node.hpp"
 
 void insert(std::vector<Data>& arr, std::size_t pos, Data& value)
 {

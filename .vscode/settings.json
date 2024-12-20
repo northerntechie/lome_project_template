@@ -1,5 +1,12 @@
 {
 	"terminal.integrated.defaultProfile.windows": "Command Prompt",
 	"terminal.integrated.defaultProfile.osx": "zsh",
-	"terminal.integrated.defaultProfile.linux": "bash"
+	"terminal.integrated.defaultProfile.linux": "bash",
+	"files.associations": {
+		"*.fragment": "json",
+		"*.md": "lome",
+		"*.mdl": "lome",
+		"istream": "cpp",
+		"variant": "cpp"
+	}
 }

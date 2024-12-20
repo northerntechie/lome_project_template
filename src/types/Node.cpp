@@ -13,7 +13,7 @@ namespace Types {
 	template<typename T>
 	std::optional<T> Node::get() const {
 		return std::visit([](const auto& _value) -> std::optional<T> {
-			if constexpr (std::is_same_v<T, decltype(_value)>) {
+			if constexpr (std::is_same_v<T, std::decay_t<decltype(_value)>>) {
 				return _value;
 			} else {
 				return std::nullopt;

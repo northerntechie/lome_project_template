@@ -6,7 +6,7 @@
 
 #include "Algorithms.hpp"
 #include "Math.hpp"
-#include "Node.hpp"
+#include "types/Node.hpp"
 
 #include <iostream>
 #include <optional>
