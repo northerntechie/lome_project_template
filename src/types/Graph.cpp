@@ -1,4 +1,6 @@
 #include "Graph.hpp"
+#include <nlohmann/json.hpp>
+
 #include <algorithm>
 #include <cassert>
 
@@ -44,13 +46,21 @@ namespace Types {
 	bool Graph::addEdge(int u, int v, float weight)
 	{
 		auto edge = std::find_if(edges.begin(), edges.end(), [u,v](const auto& _edge) {
-			
+			return u == _edge.startId && v == _edge.endId;
 		});
+		if (edge != edges.end()) {
+			assert(false && "Duplication edge found in graph!");
+
+			return false;
+		}
+		edges.emplace_back(u,v,weight);
+
 		return true;
 	}
 
 	bool Graph::removeEdge(int u, int v)
 	{
+
 		return false;
 	}
 } // Types namespace

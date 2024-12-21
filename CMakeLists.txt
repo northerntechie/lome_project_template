@@ -49,5 +49,8 @@ string(
             8
             GIT_SHORT_SHA)
 
+# Include directories
+include_directories(src-external/json)
+
 # Adding the src:
 add_subdirectory(src)

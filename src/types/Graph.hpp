@@ -19,6 +19,8 @@ namespace Types {
 			int startId = -1;
 			int endId = -1;
 			float weight = 1.0f;
+			Edge(int startId, int endId, float weight)
+			: startId(startId), endId(endId), weight(weight) {}
 		};
 
 		int maxVertices = 16;
