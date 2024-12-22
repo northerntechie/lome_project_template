@@ -4,7 +4,9 @@ cmake_minimum_required(VERSION 3.21)
 # so that it works well with tools like CPM or other
 # manual dependency management
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20") # Sometimes needed for older CMake versions
 
 # strongly encouraged to enable this globally to avoid conflicts between
 # -Wpedantic being enabled and -std=c++20 and -std=gnu++20 for example
@@ -49,8 +51,13 @@ string(
             8
             GIT_SHORT_SHA)
 
+# Copy test assets
+set(DESTINATION_DIR ${CMAKE_BINARY_DIR})
+file(MAKE_DIRECTORY ${DESTINATION_DIR})
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/data DESTINATION ${DESTINATION_DIR})
+
 # Include directories
-include_directories(src-external/json)
+include_directories(src-external/json/include)
 
 # Adding the src:
 add_subdirectory(src)

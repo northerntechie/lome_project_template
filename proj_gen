@@ -13,4 +13,4 @@ fi
 
 echo "$file_to_check exists, continuing..."
 
-fragmenter --namespace_filter std,__gnu_cxx -i index.json 
+fragmenter --namespace_filter std,__gnu_cxx,ns -i index.json 

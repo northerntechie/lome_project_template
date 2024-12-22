@@ -8,21 +8,22 @@
 #pragma once
 
 #include "types/Vertex.hpp"
+#include <nlohmann/json.hpp>
 #include <string_view>
 #include <unordered_map>
 #include <vector>
 
 namespace Types {
+	struct Edge {
+		int startId = -1;
+		int endId = -1;
+		float weight = 1.0f;
+		Edge(int startId, int endId, float weight)
+		: startId(startId), endId(endId), weight(weight) {}
+	};
+
 	class Graph {
 	private:
-		struct Edge {
-			int startId = -1;
-			int endId = -1;
-			float weight = 1.0f;
-			Edge(int startId, int endId, float weight)
-			: startId(startId), endId(endId), weight(weight) {}
-		};
-
 		int maxVertices = 16;
 		bool directed = false;
 		std::vector<Edge> edges;
@@ -32,7 +33,7 @@ namespace Types {
 		Graph(int maxVertices, bool directed = false);
 		~Graph() = default;
 
-		void load(std::string_view file);
+		bool load(std::string_view fileName);
 		bool isDirected() const;
 		int numVertices() const;
 		bool isEdge(int u, int v) const;
@@ -41,3 +42,5 @@ namespace Types {
 		bool removeEdge(int u, int v);
 	};
 } // namespace Types
+
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(Types::Edge, startId, endId, weight)

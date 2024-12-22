@@ -1,18 +1,38 @@
 #include "Graph.hpp"
-#include <nlohmann/json.hpp>
 
+#include <nlohmann/json.hpp>
 #include <algorithm>
 #include <cassert>
+#include <iostream>
+#include <fstream>
 
 namespace Types {
+
 	Graph::Graph(int maxVertices, bool directed /*= false*/)
 	: maxVertices(maxVertices), directed(directed) {
 		edges.reserve(maxVertices);
 	}
 
-	void Graph::load(std::string_view file)
+	bool Graph::load(std::string_view fileName)
 	{
 		// TODO(Todd): Implementation needed
+		std::fstream fs;
+		fs.open(static_cast<const char*>(fileName.data()), std::ios::in);
+		if (!fs.is_open()) {
+			std::string msg = "Failed to open file: " + std::string(fileName.data());
+			assert(false && msg.c_str());
+			return false;
+		}
+
+		nlohmann::json data = nlohmann::json::parse(fs);
+		unsigned int numEdges = 0;
+		for (auto it : data) {
+			edges.emplace_back(it["startId"].get<int>(), it["endId"].get<int>(), it["weight"].get<float>());
+			++numEdges;
+		}
+		std::cout << "Processed " << numEdges << " edges...\n";
+
+		return true;
 	}
 
 	bool Graph::isDirected() const
@@ -22,12 +42,15 @@ namespace Types {
 
 	int Graph::numVertices() const
 	{
-		return 0;
+		return edges.size();
 	}
 
 	bool Graph::isEdge(int u, int v) const
 	{
-		return false;
+		auto it = std::find_if(edges.begin(), edges.end(), [u,v](const auto& edge) {
+			return edge.startId == u && edge.endId == v;
+		});
+		return it != edges.end();
 	}
 
 	float Graph::edgeWeight(int u, int v) const
@@ -45,10 +68,10 @@ namespace Types {
 
 	bool Graph::addEdge(int u, int v, float weight)
 	{
-		auto edge = std::find_if(edges.begin(), edges.end(), [u,v](const auto& _edge) {
+		auto it = std::find_if(edges.begin(), edges.end(), [u,v](const auto& _edge) {
 			return u == _edge.startId && v == _edge.endId;
 		});
-		if (edge != edges.end()) {
+		if (it != edges.end()) {
 			assert(false && "Duplication edge found in graph!");
 
 			return false;
@@ -60,6 +83,15 @@ namespace Types {
 
 	bool Graph::removeEdge(int u, int v)
 	{
+		auto it = std::find_if(edges.begin(), edges.end(), [u,v](const auto& _edge) {
+			return u == _edge.startId && v == _edge.endId;
+		});
+
+		if (it != edges.end()) {
+			edges.erase(it);
+
+			return true;
+		}
 
 		return false;
 	}

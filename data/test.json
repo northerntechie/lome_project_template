@@ -1,0 +1,12 @@
+[
+	{
+		"startId" : 1,
+		"endId" : 2,
+		"weight" : 1.0
+	},
+	{
+		"startId" : 2,
+		"endId" : 3,
+		"weight" : 0.5
+	}
+]
