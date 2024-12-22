@@ -6,37 +6,11 @@
 
 #include "Algorithms.hpp"
 #include "Math.hpp"
-#include "types/Node.hpp"
-#include "types/Graph.hpp"
+#include "test/TestRunner.hpp"
 
 #include <iostream>
 #include <optional>
 #include <string_view>
-
-#define TEST_HEADER std::cout << __FUNCTION__ << "\n";
-
-namespace Test {
-	void NodeStringVariant_get_CorrectValue() {
-		TEST_HEADER
-		Types::Node node("TestString");
-
-		std::optional<std::string> result = node.get<std::string>();
-
-		if (result.has_value()) {
-			std::cout << "Result= " << *result << "\n";
-		}
-		else {
-			std::cout << "Test Failed!\n";
-		}
-	}
-
-	void Graph_load_OutputCorrect() {
-		TEST_HEADER
-		Types::Graph graph;
-
-		graph.load("data/test.json");
-	}
-} // Test namespace
 
 int main()
 {
@@ -66,6 +40,5 @@ int main()
 	* Unit tests
 	*/
 	std::cout << "Unit tests:\n";
-	Test::NodeStringVariant_get_CorrectValue();
-	Test::Graph_load_OutputCorrect();
+	Test::runUnitTests();
 }

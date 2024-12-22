@@ -1,3 +1,11 @@
+/**
+ * Lome sample project - AlgorithmLibrary
+ * 
+ * Derived from "Algorithms in a Nutshell", Heineman, G.T., Pollice G., Selkow S.
+ * O'Reilly, 2009
+ * 
+ * (C) Copyright 2024-, Todd Saharchuk
+ */
 #include "Graph.hpp"
 
 #include <nlohmann/json.hpp>
@@ -7,6 +15,19 @@
 #include <fstream>
 
 namespace Types {
+
+		std::ostream& operator<<(std::ostream& os, const Graph& graph) {
+		if (graph.edges.empty()) {
+			return os;
+		}
+
+		os << "{ ";
+		for (const auto& edge : graph.edges) {
+			os << "(" << edge.startId << ",";
+			os << edge.endId << "," << edge.weight << "),";
+		}
+		return os << " }\n";
+	}
 
 	Graph::Graph(int maxVertices, bool directed /*= false*/)
 	: maxVertices(maxVertices), directed(directed) {
@@ -30,7 +51,6 @@ namespace Types {
 			edges.emplace_back(it["startId"].get<int>(), it["endId"].get<int>(), it["weight"].get<float>());
 			++numEdges;
 		}
-		std::cout << "Processed " << numEdges << " edges...\n";
 
 		return true;
 	}
