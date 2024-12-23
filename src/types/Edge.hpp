@@ -16,10 +16,10 @@
 
 namespace Types {
 	struct Edge {
-		int startId = -1;
-		int endId = -1;
+		int u = -1;
+		int v = -1;
 		float weight = 1.0f;
-		Edge(int startId, int endId, float weight)
-		: startId(startId), endId(endId), weight(weight) {}
+		Edge(int u, int v, float weight)
+		: u(u), v(v), weight(weight) {}
 	};
 } // Types namespace

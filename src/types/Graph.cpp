@@ -23,8 +23,8 @@ namespace Types {
 
 		os << "{ ";
 		for (const auto& edge : graph.edges) {
-			os << "(" << edge.startId << ",";
-			os << edge.endId << "," << edge.weight << "),";
+			os << "(" << edge.u << ",";
+			os << edge.v << "," << edge.weight << "),";
 		}
 		return os << " }\n";
 	}
@@ -48,7 +48,7 @@ namespace Types {
 		nlohmann::json data = nlohmann::json::parse(fs);
 		unsigned int numEdges = 0;
 		for (auto it : data) {
-			edges.emplace_back(it["startId"].get<int>(), it["endId"].get<int>(), it["weight"].get<float>());
+			edges.emplace_back(it["u"].get<int>(), it["v"].get<int>(), it["weight"].get<float>());
 			++numEdges;
 		}
 
@@ -67,19 +67,15 @@ namespace Types {
 
 	bool Graph::isEdge(int u, int v) const
 	{
-		auto it = std::find_if(edges.begin(), edges.end(), [u,v](const auto& edge) {
-			return edge.startId == u && edge.endId == v;
-		});
+		auto it = _findEdge(u,v);
 		return it != edges.end();
 	}
 
 	float Graph::edgeWeight(int u, int v) const
 	{
-		auto edge = std::find_if(edges.begin(), edges.end(), [u,v](const auto& _edge) -> bool {
-			return _edge.startId == u && _edge.endId == v;
-		});
-		if (edge != edges.end()) {
-			return edge->weight;
+		auto it = _findEdge(u, v);
+		if (it != edges.end()) {
+			return it->weight;
 		}
 	
 		assert(false && "Edge does not exist");
@@ -88,9 +84,7 @@ namespace Types {
 
 	bool Graph::addEdge(int u, int v, float weight)
 	{
-		auto it = std::find_if(edges.begin(), edges.end(), [u,v](const auto& _edge) {
-			return u == _edge.startId && v == _edge.endId;
-		});
+		auto it = _findEdge(u, v);
 		if (it != edges.end()) {
 			assert(false && "Duplication edge found in graph!");
 
@@ -103,9 +97,7 @@ namespace Types {
 
 	bool Graph::removeEdge(int u, int v)
 	{
-		auto it = std::find_if(edges.begin(), edges.end(), [u,v](const auto& _edge) {
-			return u == _edge.startId && v == _edge.endId;
-		});
+		auto it = _findEdge(u, v);
 
 		if (it != edges.end()) {
 			edges.erase(it);
@@ -114,5 +106,12 @@ namespace Types {
 		}
 
 		return false;
+	}
+
+	std::vector<Edge>::const_iterator Graph::_findEdge(int u, int v) const
+	{
+		return std::find_if(edges.begin(), edges.end(), [u,v](const auto& edge) {
+			return edge.u == u && edge.v == v;
+		});
 	}
 } // Types namespace

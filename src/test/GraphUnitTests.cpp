@@ -14,12 +14,15 @@
 
 namespace Test {
 	void Graph_load_OutputCorrect() {
-		TEST_HEADER
+		TEST_HEADER();
 		Types::Graph graph;
 
 		graph.load("data/test.json");
-
 		std::cout << "\tOutput: ";
 		std::cout << graph;
+
+		assert(graph.isEdge(1,2));
+		assert(graph.isEdge(2,3));
+		TEST_FOOTER();
 	}
 } // Test namespace

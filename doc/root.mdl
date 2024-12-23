@@ -26,30 +26,74 @@ The complexity of the insertion sort algorithm is $O(n)$ for best case, $O(n^2)$
 
 Graph algorithms require data structures to represent input, intermediate, and output data. The library provides various data structures for the user to use to represent graph data. Here are the various data structures available in the library.
 
-### `Node`
+### `Edge` Data Structure
 
-The `Node` data structure is used to represent a node in a graph. It is the base type that has different derived types depending on usage.
+The `Edge` data structure is used to represent an edge `(u,v)` between two vertices `u` and `v` in a graph. It is the base type that has different derived types depending on usage.
 
 <!-- This is an example of a Latex table -->
 \begin{center}
 \begin{tabular}{ |l| }
-  \hline
-  \texttt{Node<ValueType>} \\
-  \hline
-  \texttt{+value: ValueType} \\
-  \hline
-  \texttt{+get(): ValueType} \\
-  \texttt{+set(value: ValueType)} \\
-  \hline
+	\hline
+	\texttt{Edge} \\
+	\hline
+	\texttt{+u: int} \\
+	\texttt{+v: int} \\
+	\texttt{+weight: float} \\
+	\hline
 \end{tabular}
 \end{center}
 
-The `ValueType` is declared as `using Types::ValueType = std::variant<int,float,double,std::string>` and can be extended to other types as needed. The setter and getters are simple yet sufficient.
+The starting or first vertex is identified by a unique integer value of $u$, and the ending or next vertex is identified as $v$. A weight is also provided to allow for edge weighted graph representation. A vertex can have many edges in a graph, so the value of $u$ can appear many times. A sequence of edges could be represented by ${ (u_0, v_0, w_0), (u_0, v_1, w_1), (u_0, v_2, w_2) }$.
 
-[!Types::Node::get()]
+### `Graph` class
 
-[!Types::Node::set(int)]
+A graph is represented as a `Graph` class which encapsulates the graph data and provides unary operations, getters and setters.
 
-An example of using the `get()` function is,
+\begin{center}
+\begin{tabular}{ |l| }
+	\hline
+	\texttt{Graph} \\
+	\hline
+		\texttt{-maxVertices: int} \\
+		\texttt{-directed: bool} \\
+		\texttt{-edges: list<Edge>} \\
+	\hline
+		\texttt{+Graph(int maxVertices, bool directed = false)} \\
+		\texttt{+load(std::string\_view fileName): bool} \\
+		\texttt{+isDirected(): bool} \\
+		\texttt{+numVertices(): int} \\
+		\texttt{+isEdge(int u, int v): bool} \\
+		\texttt{+edgeWeight(int u, int v): float} \\
+		\texttt{+addEdge(int u, int v, float weight): bool} \\
+		\texttt{+removeEdge(int u, int v): bool} \\
+		\texttt{+friend operator<<(std::ostream\& os, const Graph\& graph): std::ostream\&} \\
+	\hline
+\end{tabular}
+\end{center}
 
-[!Test::NodeStringVariant_get_CorrectValue()-21:31]
+\pagebreak
+
+An simple example of using the graph and an external json file to load is,
+
+[!Test::Graph_load_OutputCorrect()-18:23]
+
+The output is,
+
+		Output: { (1,2,1),(2,3,0.5), }
+
+And the json file is,
+
+```json
+[
+	{
+		"u" : 1,
+		"v" : 2,
+		"weight" : 1.0
+	},
+	{
+		"u": 2,
+		"v" : 3,
+		"weight" : 0.5
+	}
+]
+```

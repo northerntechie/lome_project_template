@@ -10,4 +10,5 @@
 
 #include <iostream>
 
-#define TEST_HEADER std::cout << __FUNCTION__ << "\n";
+#define TEST_HEADER() std::cout << __FUNCTION__ << "\n"
+#define TEST_FOOTER() std::cout << "\tTest passed.\n"

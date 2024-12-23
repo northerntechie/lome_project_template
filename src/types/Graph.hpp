@@ -22,6 +22,8 @@ namespace Types {
 		bool directed = false;
 		std::vector<Edge> edges;
 
+		std::vector<Edge>::const_iterator _findEdge(int u, int v) const;
+
 	public:
 		Graph() = default;
 		Graph(int maxVertices, bool directed = false);
@@ -38,4 +40,4 @@ namespace Types {
 	};
 } // namespace Types
 
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(Types::Edge, startId, endId, weight)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(Types::Edge, u, v, weight)
