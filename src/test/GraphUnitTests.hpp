@@ -8,6 +8,16 @@
  */
 #pragma once
 
+#include "test/Utils.hpp"
+
 namespace Test {
-	void Graph_load_OutputCorrect(); 
+	void Graph_load_OutputCorrect();
+	void GraphLoad_getConnectedEdges_EdgesCorrect();
+	void GraphLoad_removeEdge_EdgesCorrect();
+	void GraphLoad_addEdge_EdgesCorrect();
+	void Graph_isDirected_Success();
+	void Graph_numEdges_Success();
+	void Graph_isEdge_Success();
+	void Graph_edgeWeight_Success();
+	void Graph_getVertices_VerticesCorrect();
 } // Test namespace

@@ -21,5 +21,13 @@ namespace Types {
 		float weight = 1.0f;
 		Edge(int u, int v, float weight)
 		: u(u), v(v), weight(weight) {}
+
+		bool isUnique(const Edge& other) const {
+			return u != other.u || v != other.v;
+		}
+
+		bool operator==(const Edge& other) const {
+			return u == other.u && v == other.v && weight == other.weight;
+		}
 	};
 } // Types namespace

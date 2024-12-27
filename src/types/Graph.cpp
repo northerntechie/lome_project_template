@@ -60,7 +60,7 @@ namespace Types {
 		return directed;
 	}
 
-	int Graph::numVertices() const
+	int Graph::numEdges() const
 	{
 		return edges.size();
 	}
@@ -106,6 +106,37 @@ namespace Types {
 		}
 
 		return false;
+	}
+
+	const std::vector<Edge>& Graph::getEdges() const
+	{
+		return edges;
+	}
+
+	std::vector<Edge> Graph::getConnectedEdges(int u) const
+	{
+		std::vector<Edge> result;
+		result.reserve(edges.size());
+
+		for (const auto& edge : edges) {
+			if (edge.u == u) {
+				result.emplace_back(edge.u, edge.v, edge.weight);
+			}
+		}
+
+		return result;
+	}
+
+	std::set<int> Graph::getVertices() const
+	{
+		std::set<int> vertices;
+
+		for (const auto& edge : edges) {
+			vertices.insert(edge.u);
+			vertices.insert(edge.v);
+		}
+
+		return vertices;
 	}
 
 	std::vector<Edge>::const_iterator Graph::_findEdge(int u, int v) const

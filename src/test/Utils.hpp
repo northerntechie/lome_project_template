@@ -9,6 +9,40 @@
 #pragma once
 
 #include <iostream>
+#include <stdexcept>
 
-#define TEST_HEADER() std::cout << __FUNCTION__ << "\n"
-#define TEST_FOOTER() std::cout << "\tTest passed.\n"
+#define FUNCTION_NAME_TO_STRING(func) #func
+#define TEST_HEADER(func) std::cout << func
+#define TEST_PASSED_FOOTER() std::cout << "...Test passed.\n"
+#define TEST_FAILED_FOOTER() std::cout << "...Test failed!\n"
+
+namespace Test {
+	template <typename Func>
+	void TEST_METHOD_IMPL(Func&& func)
+	{
+		func();
+	}
+}
+
+#define TEST_ASSERT(expr, msg) \
+	try { \
+		if (!(expr)) { \
+			throw std::runtime_error(msg); \
+		} \
+	} \
+	catch(const std::exception& e) { \
+		throw std::runtime_error(msg); \
+	}
+
+#define TEST_METHOD(functionName) \
+	void functionName ## _TestImpl() { \
+		TEST_HEADER(#functionName); \
+		try { \
+			TEST_METHOD_IMPL(functionName); \
+			TEST_PASSED_FOOTER(); \
+		} \
+		catch(const std::exception& e) { \
+			std::cerr << " " << e.what() << " "; \
+			TEST_FAILED_FOOTER(); \
+		} \
+	}

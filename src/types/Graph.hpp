@@ -13,6 +13,8 @@
 #include <string_view>
 #include <unordered_map>
 #include <vector>
+#include <set>
+#include <span>
 
 namespace Types {
 
@@ -23,6 +25,7 @@ namespace Types {
 		std::vector<Edge> edges;
 
 		std::vector<Edge>::const_iterator _findEdge(int u, int v) const;
+		void _updateEdges();
 
 	public:
 		Graph() = default;
@@ -31,11 +34,14 @@ namespace Types {
 
 		bool load(std::string_view fileName);
 		bool isDirected() const;
-		int numVertices() const;
+		int numEdges() const;
 		bool isEdge(int u, int v) const;
 		float edgeWeight(int u, int v) const;
 		bool addEdge(int u, int v, float weight = 1.0f);
 		bool removeEdge(int u, int v);
+		const std::vector<Edge>& getEdges() const;
+		std::vector<Edge> getConnectedEdges(int u) const;
+		std::set<int> getVertices() const;
 		friend std::ostream& operator<<(std::ostream& os, const Graph& graph);
 	};
 } // namespace Types

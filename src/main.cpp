@@ -4,7 +4,7 @@
  * 
  */
 
-#include "Algorithms.hpp"
+#include "algorithms/Algorithms.hpp"
 #include "Math.hpp"
 #include "test/TestRunner.hpp"
 
