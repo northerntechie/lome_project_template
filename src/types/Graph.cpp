@@ -17,21 +17,21 @@
 namespace Types {
 
 		std::ostream& operator<<(std::ostream& os, const Graph& graph) {
-		if (graph.edges.empty()) {
+		if (graph.vertices.empty()) {
 			return os;
 		}
 
 		os << "{ ";
-		for (const auto& edge : graph.edges) {
-			os << "(" << edge.u << ",";
-			os << edge.v << "," << edge.weight << "),";
+		for (const auto& edge : graph.vertices) {
+			os << "(" << edge.first << ",";
+			os << edge.second << "),";
 		}
 		return os << " }\n";
 	}
 
 	Graph::Graph(int maxVertices, bool directed /*= false*/)
 	: maxVertices(maxVertices), directed(directed) {
-		edges.reserve(maxVertices);
+		vertices.reserve(maxVertices);
 	}
 
 	bool Graph::load(std::string_view fileName)
@@ -48,7 +48,10 @@ namespace Types {
 		nlohmann::json data = nlohmann::json::parse(fs);
 		unsigned int numEdges = 0;
 		for (auto it : data) {
-			edges.emplace_back(it["u"].get<int>(), it["v"].get<int>(), it["weight"].get<float>());
+			int u = it["u"].get<int>();
+			int v = it["v"].get<int>();
+			vertices.emplace_back(u, v);
+			weights[std::pair<int,int>(u,v)] = it["weight"].get<float>();
 			++numEdges;
 		}
 
@@ -60,37 +63,42 @@ namespace Types {
 		return directed;
 	}
 
-	int Graph::numEdges() const
+	int Graph::numVertices() const
 	{
-		return edges.size();
+		std::set<int> uniqueVertices;
+
+		for (const auto& [u, v] : vertices) {
+			uniqueVertices.insert(u);
+			uniqueVertices.insert(v);
+		}
+
+		return uniqueVertices.size();
 	}
 
 	bool Graph::isEdge(int u, int v) const
 	{
-		auto it = _findEdge(u,v);
-		return it != edges.end();
+		auto it = _findEdge(u, v);
+
+		return it != vertices.end();
 	}
 
 	float Graph::edgeWeight(int u, int v) const
 	{
-		auto it = _findEdge(u, v);
-		if (it != edges.end()) {
-			return it->weight;
-		}
-	
-		assert(false && "Edge does not exist");
-		return 0.0f;
+		return 1.0f;
 	}
 
-	bool Graph::addEdge(int u, int v, float weight)
+	bool Graph::addEdge(int u, int v, float weight /*=1.0f*/)
 	{
 		auto it = _findEdge(u, v);
-		if (it != edges.end()) {
+		if (it != vertices.end()) {
 			assert(false && "Duplication edge found in graph!");
 
 			return false;
 		}
-		edges.emplace_back(u,v,weight);
+		vertices.emplace_back(IntegerPair{u, v});
+		weights.insert(std::pair<IntegerPair,float>(
+			IntegerPair{ u, v },
+			weight));
 
 		return true;
 	}
@@ -98,9 +106,12 @@ namespace Types {
 	bool Graph::removeEdge(int u, int v)
 	{
 		auto it = _findEdge(u, v);
-
-		if (it != edges.end()) {
-			edges.erase(it);
+		if (it != vertices.end()) {
+			vertices.erase(it);
+		}
+		auto itw = weights.find(IntegerPair{ u, v });
+		if (itw != weights.end()) {
+			weights.erase(itw);
 
 			return true;
 		}
@@ -108,41 +119,40 @@ namespace Types {
 		return false;
 	}
 
-	const std::vector<Edge>& Graph::getEdges() const
+	Graph::VertexList Graph::getConnectedEdges(int u) const
 	{
-		return edges;
-	}
+		VertexList result;
+		result.reserve(vertices.size());
 
-	std::vector<Edge> Graph::getConnectedEdges(int u) const
-	{
-		std::vector<Edge> result;
-		result.reserve(edges.size());
-
-		for (const auto& edge : edges) {
-			if (edge.u == u) {
-				result.emplace_back(edge.u, edge.v, edge.weight);
+		for (const auto& pair : vertices) {
+			if (u == pair.first) {
+				result.emplace_back(u, pair.second);
 			}
 		}
 
 		return result;
 	}
 
-	std::set<int> Graph::getVertices() const
+	Graph::VertexList Graph::getVertexPairs() const
 	{
-		std::set<int> vertices;
-
-		for (const auto& edge : edges) {
-			vertices.insert(edge.u);
-			vertices.insert(edge.v);
-		}
-
 		return vertices;
 	}
 
-	std::vector<Edge>::const_iterator Graph::_findEdge(int u, int v) const
+	std::vector<int> Graph::getVertices() const {
+		std::set<int> result;
+
+		for (const auto pair : vertices) {
+			result.insert(pair.first);
+			result.insert(pair.second);
+		}
+
+		return std::vector<int>(result.begin(), result.end());
+	}
+
+	Graph::VertexList::const_iterator Graph::_findEdge(int u, int v) const
 	{
-		return std::find_if(edges.begin(), edges.end(), [u,v](const auto& edge) {
-			return edge.u == u && edge.v == v;
+		return std::find_if(vertices.begin(), vertices.end(), [u,v](const auto& pair) {
+			return u == pair.first && v == pair.second;
 		});
 	}
 } // Types namespace

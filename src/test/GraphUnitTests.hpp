@@ -16,7 +16,7 @@ namespace Test {
 	void GraphLoad_removeEdge_EdgesCorrect();
 	void GraphLoad_addEdge_EdgesCorrect();
 	void Graph_isDirected_Success();
-	void Graph_numEdges_Success();
+	void Graph_numVertices_Success();
 	void Graph_isEdge_Success();
 	void Graph_edgeWeight_Success();
 	void Graph_getVertices_VerticesCorrect();

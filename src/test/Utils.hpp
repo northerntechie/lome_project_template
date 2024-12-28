@@ -11,10 +11,13 @@
 #include <iostream>
 #include <stdexcept>
 
+#define RED_BOLD(str) "\033[31;1m" str "\033[0m"
+#define GREEN_BOLD(str) "\033[32;1m" str "\033[0m"
+
 #define FUNCTION_NAME_TO_STRING(func) #func
 #define TEST_HEADER(func) std::cout << func
-#define TEST_PASSED_FOOTER() std::cout << "...Test passed.\n"
-#define TEST_FAILED_FOOTER() std::cout << "...Test failed!\n"
+#define TEST_PASSED_FOOTER() std::cout << "..." << GREEN_BOLD("Test passed.") << "\n"
+#define TEST_FAILED_FOOTER() std::cout << "..." << RED_BOLD("Test failed!") << "\n"
 
 namespace Test {
 	template <typename Func>
@@ -42,7 +45,7 @@ namespace Test {
 			TEST_PASSED_FOOTER(); \
 		} \
 		catch(const std::exception& e) { \
-			std::cerr << " " << e.what() << " "; \
+			std::cerr << "..." << e.what(); \
 			TEST_FAILED_FOOTER(); \
 		} \
 	}

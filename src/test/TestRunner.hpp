@@ -18,7 +18,7 @@ namespace Test {
 	TEST_METHOD(GraphLoad_removeEdge_EdgesCorrect);
 	TEST_METHOD(GraphLoad_addEdge_EdgesCorrect);
 	TEST_METHOD(Graph_isDirected_Success);
-	TEST_METHOD(Graph_numEdges_Success);
+	TEST_METHOD(Graph_numVertices_Success);
 	TEST_METHOD(Graph_isEdge_Success);
 	TEST_METHOD(Graph_edgeWeight_Success);
 	TEST_METHOD(DuplicatedEdges_isUnique_ReturnFalse);
@@ -32,7 +32,7 @@ namespace Test {
 		GraphLoad_removeEdge_EdgesCorrect_TestImpl();
 		GraphLoad_addEdge_EdgesCorrect_TestImpl();
 		Graph_isDirected_Success_TestImpl();;
-		Graph_numEdges_Success_TestImpl();
+		Graph_numVertices_Success_TestImpl();
 		Graph_isEdge_Success_TestImpl();
 		Graph_edgeWeight_Success_TestImpl();
 		DuplicatedEdges_isUnique_ReturnFalse_TestImpl();

@@ -75,11 +75,11 @@ A graph is represented as a `Graph` class which encapsulates the graph data and 
 
 An simple example of using the graph and an external json file to load is,
 
-[!Test::Graph_load_OutputCorrect()-18:23]
+[!Test::Graph_load_OutputCorrect()-19:24]
 
 The output is,
 
-		Output: { (1,2,1),(2,3,0.5), }
+		Output: { (1,2),(2,3),(1,4), }
 
 And the json file is,
 
@@ -91,9 +91,25 @@ And the json file is,
 		"weight" : 1.0
 	},
 	{
-		"u": 2,
+		"u" : 2,
 		"v" : 3,
 		"weight" : 0.5
+	},
+	{
+		"u" : 1,
+		"v" : 4,
+		"weight" : 1.0
 	}
 ]
 ```
+
+\begin{tikzpicture}[>=stealth, every node/.style={circle, draw, minimum size=0.75cm}]
+\graph [tree layout, grow=down, fresh nodes, level distance=0.5in, sibling distance=0.5in]
+    {
+        4 -> { 
+          3 -> { 1 -> { 5, " " }, 2,2 },
+          3 -> { 1, 2, 2 },
+          3 -> { 1, 2, 2 }
+        } 
+    };
+\end{tikzpicture}

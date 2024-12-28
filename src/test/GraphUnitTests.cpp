@@ -34,7 +34,9 @@ namespace Test {
 		auto connectedEdges = graph.getConnectedEdges(1);
 
 		TEST_ASSERT(connectedEdges.size() == 2, "Failed to retrieve the correct number of edges");
-		TEST_ASSERT(connectedEdges == (std::vector<Types::Edge>{ Types::Edge{1, 2, 1.0f}, Types::Edge{1, 4, 1.0f} }), "");
+		TEST_ASSERT(connectedEdges == (Types::Graph::VertexList{
+			std::pair<int,int>{ 1, 2 },
+			std::pair<int,int>{ 1, 4 } }), "");
 	}
 
 	void GraphLoad_removeEdge_EdgesCorrect()
@@ -44,8 +46,10 @@ namespace Test {
 
 		bool result = graph.removeEdge(1,2);
 
-		assert(result && "removeEdge returned false");
-		assert(graph.getEdges() == (std::vector<Types::Edge>{ Types::Edge{2, 3, 0.5f}, Types::Edge{1, 4, 1.0f} }));
+		TEST_ASSERT(result, "removeEdge returned false");
+		TEST_ASSERT(graph.getVertexPairs() == (Types::Graph::VertexList{
+			Types::Graph::IntegerPair{ 2, 3 },
+			Types::Graph::IntegerPair{ 1, 4 } }), "");
 	}
 
 	void GraphLoad_addEdge_EdgesCorrect()
@@ -55,9 +59,9 @@ namespace Test {
 		graph.addEdge(1, 2, 1.0f);
 		graph.addEdge(2, 3, 0.5f);
 
-		const auto& edges = graph.getEdges();
-		assert(edges[0] == Types::Edge(1, 2, 1.0f));
-		assert(edges[1] == Types::Edge(2, 3, 0.5f));
+		const auto& edges = graph.getVertexPairs();
+		TEST_ASSERT(edges[0] == (Types::Graph::IntegerPair{ 1, 2 }), "");
+		TEST_ASSERT(edges[1] == (Types::Graph::IntegerPair{ 2, 3 }), "");
 	}
 
 	void Graph_isDirected_Success()
@@ -66,17 +70,17 @@ namespace Test {
 
 		bool result = graph.isDirected();
 
-		assert(result && "Graph is not a directed graph");
+		TEST_ASSERT(result, "Graph is not a directed graph");
 	}
 
-	void Graph_numEdges_Success()
+	void Graph_numVertices_Success()
 	{
 		Types::Graph graph;
 		graph.load("data/test.json");
 
-		int result = graph.numEdges();
+		int result = graph.numVertices();
 
-		assert(result == 3 && "Size of graph is not correct");
+		TEST_ASSERT(result == 4, "Size of graph is not correct");
 	}
 
 	void Graph_isEdge_Success()
@@ -86,7 +90,7 @@ namespace Test {
 
 		bool result = graph.isEdge(1,2);
 
-		assert(result && "isEdge failed");
+		TEST_ASSERT(result, "isEdge failed");
 	}
 
 	void Graph_edgeWeight_Success()
@@ -96,7 +100,7 @@ namespace Test {
 
 		const float result = graph.edgeWeight(1,2);
 
-		assert(result == 1.0f && "edgeWeight Success");
+		TEST_ASSERT(result == 1.0f, "edgeWeight Success");
 	}
 
 	void Graph_getVertices_VerticesCorrect()
@@ -104,10 +108,10 @@ namespace Test {
 		Types::Graph graph;
 		graph.load("data/test.json");
 
-		const std::set<int> result = graph.getVertices();
+		const std::vector<int> result = graph.getVertices();
 
-		assert(result == (std::set<int>{
+		TEST_ASSERT(result == (std::vector<int>{
 			1, 2, 3, 4
-		}) && "Vertices set is not correct");
+		}), "Vertices set is not correct");
 	}
 } // Test namespace
