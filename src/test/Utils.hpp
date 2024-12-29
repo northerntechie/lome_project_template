@@ -10,6 +10,9 @@
 
 #include <iostream>
 #include <stdexcept>
+#include <unordered_map>
+#include <functional>
+#include <tuple>
 
 #define RED_BOLD(str) "\033[31;1m" str "\033[0m"
 #define GREEN_BOLD(str) "\033[32;1m" str "\033[0m"
@@ -25,6 +28,8 @@ namespace Test {
 	{
 		func();
 	}
+
+	inline static std::unordered_map<std::string,std::function<void()>> testFunctions = {};
 }
 
 #define TEST_ASSERT(expr, msg) \
@@ -37,15 +42,20 @@ namespace Test {
 		throw std::runtime_error(msg); \
 	}
 
-#define TEST_METHOD(functionName) \
-	void functionName ## _TestImpl() { \
-		TEST_HEADER(#functionName); \
-		try { \
-			TEST_METHOD_IMPL(functionName); \
-			TEST_PASSED_FOOTER(); \
-		} \
-		catch(const std::exception& e) { \
-			std::cerr << "..." << e.what(); \
-			TEST_FAILED_FOOTER(); \
-		} \
-	}
+#define TEST_LAMBDA_BODY(functionName) \
+	TEST_HEADER(#functionName); \
+	try { \
+		TEST_METHOD_IMPL(functionName); \
+		TEST_PASSED_FOOTER(); \
+	} \
+	catch(const std::exception& e) { \
+		std::cerr << "..." << e.what(); \
+		TEST_FAILED_FOOTER(); \
+	} \
+
+#define REGISTER_TEST(functionName) \
+	Test::testFunctions.emplace( \
+		#functionName, \
+		[]() { \
+			TEST_LAMBDA_BODY(functionName) \
+		})

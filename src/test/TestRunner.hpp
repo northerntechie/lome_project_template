@@ -8,36 +8,30 @@
  */
 #pragma once
 
+#include "test/GraphAlgorithm.hpp"
 #include "test/GraphUnitTests.hpp"
 #include "test/EdgeUnitTests.hpp"
 #include "test/Utils.hpp"
 
 namespace Test {
-	TEST_METHOD(Graph_load_OutputCorrect);
-	TEST_METHOD(GraphLoad_getConnectedEdges_EdgesCorrect);
-	TEST_METHOD(GraphLoad_removeEdge_EdgesCorrect);
-	TEST_METHOD(GraphLoad_addEdge_EdgesCorrect);
-	TEST_METHOD(Graph_isDirected_Success);
-	TEST_METHOD(Graph_numVertices_Success);
-	TEST_METHOD(Graph_isEdge_Success);
-	TEST_METHOD(Graph_edgeWeight_Success);
-	TEST_METHOD(DuplicatedEdges_isUnique_ReturnFalse);
-	TEST_METHOD(TwoDistinctEdges_isUnique_ReturnTrue);
-	TEST_METHOD(TwoDuplicatedEdgesDifferentWeight_isUnique_ReturnFalse);
-	TEST_METHOD(Graph_getVertices_VerticesCorrect);
 
 	void runUnitTests() {
-		Graph_load_OutputCorrect_TestImpl();
-		GraphLoad_getConnectedEdges_EdgesCorrect_TestImpl();
-		GraphLoad_removeEdge_EdgesCorrect_TestImpl();
-		GraphLoad_addEdge_EdgesCorrect_TestImpl();
-		Graph_isDirected_Success_TestImpl();;
-		Graph_numVertices_Success_TestImpl();
-		Graph_isEdge_Success_TestImpl();
-		Graph_edgeWeight_Success_TestImpl();
-		DuplicatedEdges_isUnique_ReturnFalse_TestImpl();
-		TwoDistinctEdges_isUnique_ReturnTrue_TestImpl();
-		TwoDuplicatedEdgesDifferentWeight_isUnique_ReturnFalse_TestImpl();
-		Graph_getVertices_VerticesCorrect_TestImpl();
+		REGISTER_TEST(Graph_load_OutputCorrect);
+		REGISTER_TEST(GraphLoad_getConnectedEdges_EdgesCorrect);
+		REGISTER_TEST(GraphLoad_removeEdge_EdgesCorrect);
+		REGISTER_TEST(GraphLoad_addEdge_EdgesCorrect);
+		REGISTER_TEST(Graph_isDirected_Success);;
+		REGISTER_TEST(Graph_numVertices_Success);
+		REGISTER_TEST(Graph_isEdge_Success);
+		REGISTER_TEST(Graph_edgeWeight_Success);
+		REGISTER_TEST(DuplicatedEdges_isUnique_ReturnFalse);
+		REGISTER_TEST(TwoDistinctEdges_isUnique_ReturnTrue);
+		REGISTER_TEST(TwoDuplicatedEdgesDifferentWeight_isUnique_ReturnFalse);
+		REGISTER_TEST(Graph_getVertices_VerticesCorrect);
+		REGISTER_TEST(Graph_dfs_PredecessorsCorrect);
+
+		for ([[maybe_unused]] auto& [ name, test] : testFunctions) {
+			test();
+		}
 	}
 } // Test namespace
