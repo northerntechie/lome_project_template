@@ -11,21 +11,21 @@
 #include "types/Vertex.hpp"
 #include "GraphAlgorithms.hpp"
 
+#include <algorithm>
+
 namespace Algo {
 	void dfs(const Types::Graph& graph, int s, std::vector<int>& predecessor) {
 		std::vector<int> vertices = graph.getVertices();
-		std::vector<Types::VertexColor> color;
-		std::vector<int> discovered;
-		std::vector<int> finished;
+		std::vector<Types::VertexColor> color(vertices.size());
+		std::vector<int> discovered(vertices.size());
+		std::vector<int> finished(vertices.size());
 		std::size_t counter = 0;
 
-		for (const auto v : vertices) {
-			color[v] = Types::VertexColor::White;
-			discovered[v] = -1;
-			finished[v] = -1;
-			predecessor[v] = -1;
-		}
-		_dfs_visit(graph, discovered, finished, predecessor, color, vertices[0], counter);
+		std::fill(color.begin(), color.end(), Types::VertexColor::White);
+		std::fill(discovered.begin(), discovered.end(), -1);
+		std::fill(finished.begin(), finished.end(), -1);
+
+		_dfs_visit(graph, discovered, finished, predecessor, color, s, counter);
 
 		for (const auto v : vertices) {
 			if (color[v] == Types::VertexColor::White) {
@@ -47,9 +47,9 @@ namespace Algo {
 		discovered[id] = ++counter;
 
 		for (const auto edge : graph.getConnectedEdges(id)) {
-			if (color[edge.first] == Types::VertexColor::White) {
-				predecessor[edge.first] = id;
-				_dfs_visit(graph, discovered, finished, predecessor, color, edge.first, counter);
+			if (color[edge.second] == Types::VertexColor::White) {
+				predecessor[edge.second] = id;
+				_dfs_visit(graph, discovered, finished, predecessor, color, edge.second, counter);
 			}
 		}
 

@@ -102,8 +102,9 @@ And the json file is,
 	}
 ]
 ```
+\pagebreak
 
-\begin{figure}[h]
+\begin{figure}[ht!]
 	\centering
 	\begin{subfigure}[t]{0.49\textwidth}
 		\centering
@@ -138,7 +139,7 @@ And the json file is,
 		\caption{Initial graphs state}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[t]{0.49\textwidth}
+	\begin{subfigure}[t]{0.45\textwidth}
 		\centering
 		\begin{tikzpicture}[>=stealth]
 			\matrix [column sep=5mm,row sep=5mm]
@@ -238,6 +239,13 @@ And the json file is,
 		\end{tikzpicture}
 		\caption{\_dfs\_visit() final state}
 	\end{subfigure}
-
 	\captionof{figure}{Depth-first search example}
 \end{figure}
+
+
+The $\texttt{Algo::dfs(const Types::Graph\& graph, int startId, std::vector<int>\& predecessor)}$ function provides the $\texttt{DEPTH-FIRST SEARCH}$ algorithm on a graph object and outputs a predecessor list to determine the paths taken back to the start for each child vertices.
+
+[!Algo::dfs(const Types::Graph &, int, int &)]
+
+The `Algo::_dfs_visit(const Types::Graph& graph, std::vector<int>& discovered, std::vector<int>& finished, std::vector<int>& predecessor, std::vector<Types::VertexColor>& color, int id, std::size_t counter)` provides the recursive calls to walk the entire graph. The `discovered`, `finished`, `color` and the final ouput `predecessor` lists are passed through each `_dfx_visit(...)` call. These are free functions and not a class object. This implementation is for an explicit example of where the affected data structures are used. A better example is a class object to hide the implementation details. That can be seen in the `Algo::DepthFirstSearch` class.
+

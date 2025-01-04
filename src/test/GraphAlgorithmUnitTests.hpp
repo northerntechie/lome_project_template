@@ -6,14 +6,9 @@
  * 
  * (C) Copyright 2024-, Todd Saharchuk
  */
-#include "GraphAlgorithm.hpp"
-#include "algorithms/GraphAlgorithms.hpp"
-#include "types/Graph.hpp"
+#pragma once
 
 namespace Test {
-	void Graph_dfs_PredecessorsCorrect()
-	{
-		Types::Graph graph;
-		graph.addEdge(0,1);
-	}
+	void Graph_dfs_PredecessorsCorrect();
+	void Graph_DepthFirstSearch_PredecessorsCorrect();
 } // Test namespace

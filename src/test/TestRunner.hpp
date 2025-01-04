@@ -8,7 +8,7 @@
  */
 #pragma once
 
-#include "test/GraphAlgorithm.hpp"
+#include "test/GraphAlgorithmUnitTests.hpp"
 #include "test/GraphUnitTests.hpp"
 #include "test/EdgeUnitTests.hpp"
 #include "test/Utils.hpp"
@@ -29,6 +29,7 @@ namespace Test {
 		REGISTER_TEST(TwoDuplicatedEdgesDifferentWeight_isUnique_ReturnFalse);
 		REGISTER_TEST(Graph_getVertices_VerticesCorrect);
 		REGISTER_TEST(Graph_dfs_PredecessorsCorrect);
+		REGISTER_TEST(Graph_DepthFirstSearch_PredecessorsCorrect);
 
 		for ([[maybe_unused]] auto& [ name, test] : testFunctions) {
 			test();
