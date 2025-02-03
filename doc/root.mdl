@@ -1,4 +1,12 @@
-# A Math and Algorithm Library for Lome
+\begin{center}
+	\large{\textbf{MathAlgorithm}} \\
+	\textbf{A General Purpose Math and Algorithm Library}
+	\vfill
+\end{center}
+
+![](doc/images/Simple_treadle_floorloom_line_drawing.png){ width=100%}
+
+\pagebreak
 
 ## Introduction
 
@@ -247,5 +255,28 @@ The $\texttt{Algo::dfs(const Types::Graph\& graph, int startId, std::vector<int>
 
 [!Algo::dfs(const Types::Graph &, int, int &)]
 
-The `Algo::_dfs_visit(const Types::Graph& graph, std::vector<int>& discovered, std::vector<int>& finished, std::vector<int>& predecessor, std::vector<Types::VertexColor>& color, int id, std::size_t counter)` provides the recursive calls to walk the entire graph. The `discovered`, `finished`, `color` and the final ouput `predecessor` lists are passed through each `_dfx_visit(...)` call. These are free functions and not a class object. This implementation is for an explicit example of where the affected data structures are used. A better example is a class object to hide the implementation details. That can be seen in the `Algo::DepthFirstSearch` class.
+The `Algo::_dfs_visit(const Types::Graph& graph, std::vector<int>& discovered, std::vector<int>& finished, std::vector<int>& predecessor, std::vector<Types::VertexColor>& color, int id, std::size_t counter)` provides the recursive calls to walk the entire graph. The `discovered`, `finished`, `color` and the final ouput `predecessor` lists are passed through each `_dfx_visit(...)` call. These are free functions and not a class object. This implementation is for an explicit example of where the affected data structures are used.
+
+The pseudo code for the $\texttt{DEPTH-FIRST SEARCH}$ is shown in listing,
+
+\begin{algorithm}
+	\SetAlgoLined
+	\KwData{this text}
+	\KwResult{how to write algorithm with \LaTeX2e }
+	initialization\;
+	\While{not at end of this document}{
+		read current\;
+		\eIf{understand}{
+			go to next section\;
+			current section becomes this one\;
+		}{
+			go back to the beginning of current section\;
+		}
+	}
+	\caption{How to write algorithms}
+\end{algorithm}
+
+An easier method of supplying a depth first search algorithm on a graph object is to wrap the operation in a class object to hide the implementation details. That can be seen in the `Algo::DepthFirstSearch` class that takes in a graph object and returns the predecessor list in a search function.
+
+
 
