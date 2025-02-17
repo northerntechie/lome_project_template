@@ -10,15 +10,12 @@
 #include <vector>
 #include <string_view>
 
-struct Data {
-	std::string_view name;
-	bool operator>(Data& other) {
-		return name > other.name;
-	}
-};
+struct Data;
 
-// Insert Sort Algorithm
-void insert(std::vector<Data>& arr, std::size_t pos, Data& value);
-void insertion_sort(std::vector<Data>& arr);
+namespace Algorithm {
+	// Insert Sort Algorithm
+	void insert(std::vector<Data>& arr, std::size_t pos, Data& value);
+	void insertion_sort(std::vector<Data>& arr);
 
-// 
+	// 
+} // Algorithm namespace

@@ -12,7 +12,6 @@
 #include "types/Graph.hpp"
 
 #include <iostream>
-#include "GraphUnitTests.hpp"
 
 namespace Test {
 	void Graph_load_OutputCorrect() {

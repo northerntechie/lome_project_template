@@ -10,6 +10,7 @@
 
 #include <iostream>
 #include <stdexcept>
+#include <sstream>
 #include <unordered_map>
 #include <functional>
 #include <tuple>
@@ -30,6 +31,15 @@ namespace Test {
 	}
 
 	inline static std::unordered_map<std::string,std::function<void()>> testFunctions = {};
+
+	template<typename T>
+	std::string stringifyVector(const std::vector<T>& vec) {
+		std::stringstream ss;
+		for (const auto& element : vec) {
+			ss << element << " ";
+		}
+		return ss.str();
+	}
 }
 
 #define TEST_ASSERT(expr, msg) \
