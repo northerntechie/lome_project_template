@@ -8,13 +8,13 @@
 
 \pagebreak
 
-## Introduction
+# Introduction
 
 The MathAlgorithm library provides commonly used math and algorithms used in Computer Science education in the C++ language. This book provides the documentation of the Library. Images, diagrams along with mathematical concepts are provided throughout.
 
-## Sort Algorithms
+# Sort Algorithms
 
-### Insertion Sort
+## Insertion Sort
 
 The library provides and __Insertion Sort__ implementation through the `insertion_sort()` function.
 
@@ -30,11 +30,11 @@ The complexity of the insertion sort algorithm is $O(n)$ for best case, $O(n^2)$
 
 [!insert(std::vector<Data> &, std::size_t, Data &)-12:17]
 
-## Graph Algorithms
+# Graph Algorithms
 
 Graph algorithms require data structures to represent input, intermediate, and output data. The library provides various data structures for the user to use to represent graph data. Here are the various data structures available in the library.
 
-### `Edge` Data Structure
+## `Edge` Data Structure
 
 The `Edge` data structure is used to represent an edge `(u,v)` between two vertices `u` and `v` in a graph. It is the base type that has different derived types depending on usage.
 
@@ -53,7 +53,7 @@ The `Edge` data structure is used to represent an edge `(u,v)` between two verti
 
 The starting or first vertex is identified by a unique integer value of $u$, and the ending or next vertex is identified as $v$. A weight is also provided to allow for edge weighted graph representation. A vertex can have many edges in a graph, so the value of $u$ can appear many times. A sequence of edges could be represented by ${ (u_0, v_0, w_0), (u_0, v_1, w_1), (u_0, v_2, w_2) }$.
 
-### `Graph` class
+## `Graph` class
 
 A graph is represented as a `Graph` class which encapsulates the graph data and provides unary operations, getters and setters.
 
@@ -257,26 +257,81 @@ The $\texttt{Algo::dfs(const Types::Graph\& graph, int startId, std::vector<int>
 
 The `Algo::_dfs_visit(const Types::Graph& graph, std::vector<int>& discovered, std::vector<int>& finished, std::vector<int>& predecessor, std::vector<Types::VertexColor>& color, int id, std::size_t counter)` provides the recursive calls to walk the entire graph. The `discovered`, `finished`, `color` and the final ouput `predecessor` lists are passed through each `_dfx_visit(...)` call. These are free functions and not a class object. This implementation is for an explicit example of where the affected data structures are used.
 
-The pseudo code for the $\texttt{DEPTH-FIRST SEARCH}$ is shown in listing,
+The pseudo code for the $\texttt{DEPTH-FIRST SEARCH}$ is shown in Algorithm 1,
 
 \begin{algorithm}
 	\SetAlgoLined
-	\KwData{this text}
-	\KwResult{how to write algorithm with \LaTeX2e }
-	initialization\;
-	\While{not at end of this document}{
-		read current\;
-		\eIf{understand}{
-			go to next section\;
-			current section becomes this one\;
-		}{
-			go back to the beginning of current section\;
+	\KwData{Graph $V$, start vertex $s$}
+	\KwResult{Arrays of $d$, discovered, $pred$, predecessor vertices, and $f$, finished counter}
+	\Begin{
+		\ForEach{$v \in V$}{
+			d[v] = f[v] = pred[v] = -1\\
+			color[v] = White\\
+		}
+		counter = 0\\
+		\FuncSty{dfs\_visit(}\ArgSty{s}\FuncSty{)}\\
+
+		\ForEach{$v \in V$}{
+			\If{color[v] = White}{
+				\FuncSty{dfs\_visit(}\ArgSty{v}\FuncSty{)}\\
+			}
 		}
 	}
-	\caption{How to write algorithms}
+	\BlankLine
+	\FuncSty{dfs\_visit(}\ArgSty{u}\FuncSty{)} \\
+	\Begin{
+		color[u] = Gray \\
+		d[u] = ++counter \\
+		\For{each neighbor v of u}{
+			\If{color[v] = White}{
+				pred[v] = u \\
+				\FuncSty{dfs\_visit(}\ArgSty{v}\FuncSty{)}
+			}
+		}
+		color[u] = black \\
+		f[u] = ++counter
+	}
+	\caption{DEPTH-FIRST SEARCH}
+	\label{depthFirst0}
 \end{algorithm}
 
 An easier method of supplying a depth first search algorithm on a graph object is to wrap the operation in a class object to hide the implementation details. That can be seen in the `Algo::DepthFirstSearch` class that takes in a graph object and returns the predecessor list in a search function.
 
+The complexity of the DEPTH-FIRST SEARCH algorithm is show in Table 1.
 
+\begin{table}[h]
+	\centering
+	\setcellgapes{5pt}
+	\makegapedcells
+	\begin{tabular}{|c|c|c| }
+		\hline
+		\texttt{Best} & \texttt{Average} & \texttt{Worst} \\
+		\hline
+		$O(V+E)$ & $O(V+E)$ & $O(V+E)$ \\
+		\hline
+	\end{tabular}
+	\caption{DEPTH-FIRST SEARCH complexity}
+\end{table}
 
+# `TaskManager` helper class
+
+The `TaskManager` class provides a simple task management to allow tasks to use an underlying thread pool within the class implementation to run algorithms in a parallel manner.
+
+The sequence diagram in Figure 1 shows the interaction between the task build and the thread pool implementation.
+
+\begin{figure}
+  \centering
+
+  \begin{sequencediagram}
+    \newthread{tm}{:TaskManager}
+    \newinst[1]{th0}{:Thread0}
+    \newinst[1]{th1}{:Thread1}
+    \newinst[1]{thn}{:Threadn}
+
+    \begin{call}{tm}{Initialize()}{tm}{}
+    \end{call}
+
+  \end{sequencediagram}
+
+  \caption{TaskManager \texttt{run} sequence diagram}
+\end{figure}

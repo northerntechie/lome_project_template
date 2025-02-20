@@ -4,6 +4,9 @@ header-includes:
   - \usepackage{tikz}
   - \usepackage{caption}
   - \usepackage{subcaption}
+  - \usepackage{makecell}
+  - \usepackage{pgf-umlsd}
+  - \usepgflibrary{arrows}
   - \usetikzlibrary{graphdrawing}
   - \usetikzlibrary{graphs}
   - \usegdlibrary{trees}
