@@ -4,6 +4,8 @@
  */
 #pragma once
 
+#include "tasks/Result.hpp"
+
 #include <functional>
 #include <unordered_map>
 #include <string_view>
@@ -22,7 +24,10 @@ public:
 
 	void cancel(std::string_view label);
 	bool isCanceling(std::string_view label) const;
-	void run(std::string_view label, std::function<void()> task, std::function<void()> completed);
+
+	template<typename T, typename R>
+	void run(std::string_view label, std::function<Result<T,R>()> task, std::function<void()> completed);
+
 	void runAndWait(std::string_view label, std::function<void()> task, std::function<void()> completed);
 	bool wait(std::string_view label) const;
 

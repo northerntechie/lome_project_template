@@ -14,10 +14,10 @@ bool TaskManager::isCanceling(std::string_view label) const
 	return false;
 }
 
-void TaskManager::run(std::string_view label, std::function<void()> task, std::function<void()> completed)
+template<typename T, typename R>
+void TaskManager::run(std::string_view label, std::function<Result<T, R>()> task, std::function<void()> completed)
 {
-	std::jthread thread(task);
-	thread.detach();
+	
 }
 
 void TaskManager::runAndWait(std::string_view label, std::function<void()> task, std::function<void()> completed)

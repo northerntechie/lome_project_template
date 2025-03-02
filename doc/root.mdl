@@ -320,17 +320,20 @@ The `TaskManager` class provides a simple task management to allow tasks to use 
 The sequence diagram in Figure 1 shows the interaction between the task build and the thread pool implementation.
 
 \begin{figure}
-  \centering
+	\centering
 
-  \begin{sequencediagram}
-    \newthread{tm}{:TaskManager}
-    \newinst[1]{th0}{:Thread0}
-    \newinst[1]{th1}{:Thread1}
-    \newinst[1]{thn}{:Threadn}
+	\begin{sequencediagram}
+		\newthread{tm}{:TaskManager}
+		\newinst[1.5]{th0}{:Thread0}
+		\newinst[1.5]{th1}{:Thread1}
+		\newinst[1.5]{thn}{:Threadn}
 
-    \begin{call}{tm}{Initialize()}{tm}{}
-    \end{call}
-
+		\begin{sdblock}{Run Loop}{The main loop}
+			\begin{call}{tm}{run(...)}{th0}{completed()}
+				\begin{call}{tm}{run(...)}{th1}{completed()}
+				\end{call}
+			\end{call}
+		\end{sdblock}
   \end{sequencediagram}
 
   \caption{TaskManager \texttt{run} sequence diagram}
