@@ -28,6 +28,7 @@ set(GIT_SHA
 set(PROJECT_SOURCE_DIR "src")
 
 file(GLOB_RECURSE SOURCES "${PROJECT_SOURCE_DIR}/*.cpp")
+file(GLOB_RECURSE HEADERS "${PROJECT_SOURCE_DIR}/*.hpp")
 
 set(SOURCES_FILE "${CMAKE_CURRENT_SOURCE_DIR}/sources.py")
 
@@ -40,6 +41,9 @@ configure_file(
 file(WRITE ${SOURCES_FILE} "SOURCES = [\n")
 foreach(source ${SOURCES})
   file(APPEND ${SOURCES_FILE} "    \"${source}\",\n")
+endforeach()
+foreach(header ${HEADERS})
+  file(APPEND ${SOURCES_FILE} "    \"${header}\",\n")
 endforeach()
 file(APPEND ${SOURCES_FILE} "]\n")
 
