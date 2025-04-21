@@ -15,9 +15,9 @@ bool TaskManager::isCanceling(std::string_view label) const
 }
 
 template<typename T, typename R>
-void TaskManager::run(std::string_view label, std::function<Result<T, R>()> task, std::function<void()> completed)
+void TaskManager::run(std::string_view label, std::function<Result<T,R>()> task, std::function<void(Result<T,R>)> completed)
 {
-	
+	completed(task());
 }
 
 void TaskManager::runAndWait(std::string_view label, std::function<void()> task, std::function<void()> completed)
