@@ -19,16 +19,20 @@ public:
 		std::function<void()> completedCallback;
 	};
 
+	enum class Result {
+		Ok,
+		Failure,
+		SuccessWithWarnings,
+		_next,
+	};
+
 	TaskManager() = default;
 	~TaskManager() = default;
 
 	void cancel(std::string_view label);
 	bool isCanceling(std::string_view label) const;
-
-	template<typename T, typename R>
-	void run(std::string_view label, std::function<Result<T,R>()> task, std::function<void(Result<T,R>)> completed);
-
-	void runAndWait(std::string_view label, std::function<void()> task, std::function<void()> completed);
+	void run(std::string_view label, std::function<void()> task, std::function<void(Result&)> completed);
+	void runAndWait(std::string_view label, std::function<void()> task, std::function<void(Result&)> completed);
 	bool wait(std::string_view label) const;
 
 private:
