@@ -14,20 +14,14 @@ bool TaskManager::isCanceling(std::string_view label) const
 	return false;
 }
 
-void TaskManager::run(std::string_view label, std::function<void()> task, std::function<void(Result&)> completed)
+void TaskManager::run(std::string_view label, std::function<Result()>&& task, std::function<void(Result&)> completed)
 {
-	std::jthread thread(task);
-	thread.join();
-	Result result;
-	completed(result);
-}
-
-void TaskManager::runAndWait(std::string_view label, std::function<void()> task, std::function<void(Result&)> completed)
-{
-	std::jthread thread(task);
-	thread.join();
-	Result result;
-	completed(result);
+	auto thread_entry_point = [](std::function<Result()>&& func, std::function<void(Result&)> completed) {
+		Result result = func();
+		completed(result);
+	};
+	std::jthread worker(thread_entry_point, std::move(task), completed);
+	worker.detach();
 }
 
 bool TaskManager::wait(std::string_view label) const

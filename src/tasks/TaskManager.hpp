@@ -31,8 +31,7 @@ public:
 
 	void cancel(std::string_view label);
 	bool isCanceling(std::string_view label) const;
-	void run(std::string_view label, std::function<void()> task, std::function<void(Result&)> completed);
-	void runAndWait(std::string_view label, std::function<void()> task, std::function<void(Result&)> completed);
+	void run(std::string_view label, std::function<Result()>&& task, std::function<void(Result&)> completed);
 	bool wait(std::string_view label) const;
 
 private:

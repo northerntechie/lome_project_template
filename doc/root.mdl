@@ -338,3 +338,7 @@ The sequence diagram in Figure 1 shows the interaction between the task build an
 
   \caption{TaskManager \texttt{run} sequence diagram}
 \end{figure}
+
+The `TaskManager` class has a `run(...)` function that takes in both a task as a `std::function<void()>` and a completed callback that is used to examine a `TaskManager::Result` enumeration and execute code as a result. The implementation is,
+
+[!TaskManager::run(int, std::function<void ()>, std::function<void (Result &)>)]
