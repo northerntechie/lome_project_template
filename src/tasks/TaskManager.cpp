@@ -7,16 +7,24 @@
 
 void TaskManager::cancel(std::string_view label)
 {
+	// TODO(): Needs implementation
 }
 
 bool TaskManager::isCanceling(std::string_view label) const
 {
+	// TODO(): Needs implementation
 	return false;
 }
 
-void TaskManager::run(std::string_view label, std::function<Result()>&& task, std::function<void(Result&)> completed)
+void TaskManager::run(
+	std::string_view label,
+	std::function<Result()>&& task,
+	std::function<void(Result&)> completed)
 {
-	auto thread_entry_point = [](std::function<Result()>&& func, std::function<void(Result&)> completed) {
+	auto thread_entry_point = [](
+		std::function<Result()>&& func,
+		std::function<void(Result&)> completed)
+	{
 		Result result = func();
 		completed(result);
 	};
@@ -26,5 +34,6 @@ void TaskManager::run(std::string_view label, std::function<Result()>&& task, st
 
 bool TaskManager::wait(std::string_view label) const
 {
+	// TODO(): Needs implementation
 	return false;
 }

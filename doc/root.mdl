@@ -12,23 +12,25 @@
 
 The MathAlgorithm library provides commonly used math and algorithms used in Computer Science education in the C++ language. This book provides the documentation of the Library. Images, diagrams along with mathematical concepts are provided throughout.
 
-# Sort Algorithms
+# `Algorithm` namespace
+
+The `Algorithm` namespace provides a collection of algorithm operations that include sorting, partition, operations on sets among other operations.
 
 ## Insertion Sort
 
-The library provides and __Insertion Sort__ implementation through the `insertion_sort()` function.
+The library provides an __Insertion Sort__ implementation through the `insertion_sort()` function.
 
-[!insertion_sort(std::vector<Data> &)]
+[!Algorithm::insertion_sort(int &)]
 
 The `insert()` function is implemented as,
 
-[!insert(std::vector<Data> &, std::size_t, Data &)]
+[!Algorithm::insert(std::vector<Data> &, std::size_t, Data &)]
 
 The __Insertion Sort__ algorithm can be described as,
 
 The complexity of the insertion sort algorithm is $O(n)$ for best case, $O(n^2)$ for average case and $O(n^2)$ for the worst case. The complexity is driven by the single while loop in the worst case,
 
-[!insert(std::vector<Data> &, std::size_t, Data &)-12:17]
+[!Algorithm::insert(std::vector<Data> &, std::size_t, Data &)-12:16]
 
 # Graph Algorithms
 
@@ -341,4 +343,9 @@ The sequence diagram in Figure 1 shows the interaction between the task build an
 
 The `TaskManager` class has a `run(...)` function that takes in both a task as a `std::function<void()>` and a completed callback that is used to examine a `TaskManager::Result` enumeration and execute code as a result. The implementation is,
 
-[!TaskManager::run(int, std::function<void ()>, std::function<void (Result &)>)]
+[!TaskManager::run(int, std::function<Result ()> &&, std::function<void (Result &)>)]
+
+`// This is a comment that appears in the documentation only`
+[!TaskManager::run(int, std::function<Result ()> &&, std::function<void (Result &)>)-19:20]
+This is regular body text description, the `std::string_view` is used as a label as the underlying string is in static storage as a literal. We should use `std::string_view` over `const std::string&` where we can.
+[!TaskManager::run(int, std::function<Result ()> &&, std::function<void (Result &)>)-20:21]

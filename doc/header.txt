@@ -10,7 +10,11 @@ header-includes:
   - \usetikzlibrary{graphdrawing}
   - \usetikzlibrary{graphs}
   - \usegdlibrary{trees}
-  - \lstset{basicstyle=\ttfamily, numbersep=15pt}
+  - \lstset{
+      basicstyle=\ttfamily,
+      numbersep=15pt,
+      breaklines=true
+    }
   - '<style>
       code { font-family: monospace; }
       center { text-align: center; }
