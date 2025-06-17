@@ -1,7 +1,6 @@
 build/
 log/
 out/
-doc/*.md
 sources.py
 venv/
 index.json
