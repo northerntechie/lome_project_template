@@ -1,0 +1,24 @@
+---
+header-includes:
+  - \usepackage{listings}
+  - \usepackage{tikz}
+  - \usepackage{caption}
+  - \usepackage{subcaption}
+  - \usepackage{makecell}
+  - \usepackage{pgf-umlsd}
+  - \usepgflibrary{arrows}
+  - \usetikzlibrary{graphdrawing}
+  - \usetikzlibrary{graphs}
+  - \usegdlibrary{trees}
+  - \lstset{
+      basicstyle=\ttfamily,
+      numbersep=15pt,
+      breaklines=true
+    }
+  - '<style>
+      code { font-family: monospace; }
+      center { text-align: center; }
+    </style>'
+  - \usepackage[ruled,vlined]{algorithm2e}
+---
+

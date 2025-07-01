@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Use this if you want to append the current SHA to the doc pdf
+#sha=$(git rev-parse HEAD)
+#source proj_gen && weaver -o doc/AlgorithmLibrary.${sha:0:7}.pdf doc/root.mdl index.json
+
+source proj_gen && weaver -o doc/AlgorithmLibrary.pdf doc/root.mdl index.json --verbose --pdf_engine=lualatex --css doc/styles.css --header doc/header.txt

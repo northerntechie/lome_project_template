@@ -1,0 +1,12 @@
+build/
+log/
+out/
+sources.py
+venv/
+index.json
+node_modules/
+.puppeteer.json
+mermaid-filter.err
+package-lock.json
+package.json
+doc/MathLibrary.*.md
